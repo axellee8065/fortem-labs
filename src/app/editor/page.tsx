@@ -93,37 +93,37 @@ function getDefaultMapData(): MapData {
   // Build default map from officeMap logic
   const tiles = createDefaultMap();
 
-  // Meeting room walls (x 14-22)
-  for (let x = 14; x <= 22; x++) { tiles[12][x] = 1; tiles[20][x] = 1; }
-  for (let y = 12; y <= 20; y++) { tiles[y][14] = 1; tiles[y][22] = 1; }
-  tiles[12][18] = 3; tiles[20][18] = 3;
+  // Meeting room walls (x 15-23, y 14-22)
+  for (let x = 15; x <= 23; x++) { tiles[14][x] = 1; tiles[22][x] = 1; }
+  for (let y = 14; y <= 22; y++) { tiles[y][15] = 1; tiles[y][23] = 1; }
+  tiles[14][19] = 3; tiles[22][19] = 3;
 
   // Meeting table
-  tiles[15][17] = 2; tiles[15][18] = 2; tiles[15][19] = 2;
-  tiles[16][17] = 2; tiles[16][18] = 2; tiles[16][19] = 2;
+  tiles[17][18] = 2; tiles[17][19] = 2; tiles[17][20] = 2;
+  tiles[18][18] = 2; tiles[18][19] = 2; tiles[18][20] = 2;
 
-  // Agent desks (right side shifted -2)
+  // Agent desks (left x:6-7, right x:32-33)
   const deskPositions = [
-    { x: 5, y: 9 }, { x: 6, y: 9 },
-    { x: 31, y: 9 }, { x: 32, y: 9 },
-    { x: 5, y: 13 }, { x: 6, y: 13 },
-    { x: 31, y: 13 }, { x: 32, y: 13 },
-    { x: 5, y: 17 }, { x: 6, y: 17 },
-    { x: 31, y: 17 }, { x: 32, y: 17 },
-    { x: 17, y: 17 }, { x: 18, y: 17 },
-    { x: 5, y: 21 }, { x: 6, y: 21 },
-    { x: 31, y: 21 }, { x: 32, y: 21 },
+    { x: 6, y: 11 }, { x: 7, y: 11 },
+    { x: 32, y: 11 }, { x: 33, y: 11 },
+    { x: 6, y: 15 }, { x: 7, y: 15 },
+    { x: 32, y: 15 }, { x: 33, y: 15 },
+    { x: 6, y: 19 }, { x: 7, y: 19 },
+    { x: 32, y: 19 }, { x: 33, y: 19 },
+    { x: 18, y: 19 }, { x: 19, y: 19 },
+    { x: 6, y: 23 }, { x: 7, y: 23 },
+    { x: 32, y: 23 }, { x: 33, y: 23 },
   ];
   for (const pos of deskPositions) tiles[pos.y][pos.x] = 2;
 
   // Break area
-  tiles[25][18] = 2; tiles[25][19] = 2; tiles[25][20] = 2; tiles[25][21] = 2;
-  tiles[26][19] = 2; tiles[26][20] = 2;
+  tiles[27][18] = 2; tiles[27][19] = 2; tiles[27][20] = 2; tiles[27][21] = 2;
+  tiles[28][19] = 2; tiles[28][20] = 2;
 
   // Partitions
-  for (let y = 7; y <= 8; y++) { tiles[y][10] = 1; tiles[y][28] = 1; }
+  for (let y = 9; y <= 10; y++) { tiles[y][11] = 1; tiles[y][29] = 1; }
 
-  return { tiles, agents, player: { x: 20, y: 23 } };
+  return { tiles, agents, player: { x: 19, y: 25 } };
 }
 
 export default function MapEditor() {

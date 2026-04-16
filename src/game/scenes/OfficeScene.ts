@@ -129,10 +129,10 @@ export class OfficeScene extends Phaser.Scene {
 
     // Add decorative plants
     const plantPositions = [
-      { x: 2, y: 6 }, { x: 35, y: 6 },
-      { x: 2, y: 27 }, { x: 35, y: 27 },
-      { x: 13, y: 11 }, { x: 23, y: 11 },
-      { x: 13, y: 21 }, { x: 23, y: 21 },
+      { x: 3, y: 8 }, { x: 36, y: 8 },
+      { x: 3, y: 27 }, { x: 36, y: 27 },
+      { x: 14, y: 13 }, { x: 24, y: 13 },
+      { x: 14, y: 23 }, { x: 24, y: 23 },
     ];
     for (const pos of plantPositions) {
       this.add.image(pos.x * TILE + 8, pos.y * TILE + 4, 'plant').setOrigin(0.5, 0.5).setDepth(10);
@@ -140,15 +140,15 @@ export class OfficeScene extends Phaser.Scene {
 
     // Add chairs near desk positions
     const chairPositions = [
-      { x: 5, y: 10 }, { x: 6, y: 10 },     // Research
-      { x: 31, y: 10 }, { x: 32, y: 10 },   // Data
-      { x: 5, y: 14 }, { x: 6, y: 14 },     // Creative
-      { x: 31, y: 14 }, { x: 32, y: 14 },   // PR
-      { x: 5, y: 18 }, { x: 6, y: 18 },     // Copy
-      { x: 31, y: 18 }, { x: 32, y: 18 },   // Growth
-      { x: 17, y: 18 }, { x: 18, y: 18 },   // SNS
-      { x: 5, y: 22 }, { x: 6, y: 22 },     // CMO
-      { x: 31, y: 22 }, { x: 32, y: 22 },   // QA
+      { x: 6, y: 12 }, { x: 7, y: 12 },     // Research
+      { x: 32, y: 12 }, { x: 33, y: 12 },   // Data
+      { x: 6, y: 16 }, { x: 7, y: 16 },     // Creative
+      { x: 32, y: 16 }, { x: 33, y: 16 },   // PR
+      { x: 6, y: 20 }, { x: 7, y: 20 },     // Copy
+      { x: 32, y: 20 }, { x: 33, y: 20 },   // Growth
+      { x: 18, y: 20 }, { x: 19, y: 20 },   // SNS
+      { x: 6, y: 24 }, { x: 7, y: 24 },     // CMO
+      { x: 32, y: 24 }, { x: 33, y: 24 },   // QA
     ];
     for (const pos of chairPositions) {
       this.add.image(pos.x * TILE + 8, pos.y * TILE + 8, 'chair').setOrigin(0.5, 0.5).setDepth(4);
@@ -162,21 +162,21 @@ export class OfficeScene extends Phaser.Scene {
       backgroundColor: '#00000066',
       padding: { x: 4, y: 3 },
     };
-    this.add.text(4 * TILE, 8 * TILE, 'RESEARCH', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(30 * TILE, 8 * TILE, 'DATA', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(4 * TILE, 12 * TILE, 'CREATIVE', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(30 * TILE, 12 * TILE, 'PR', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(4 * TILE, 16 * TILE, 'COPY', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(30 * TILE, 16 * TILE, 'GROWTH', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(16 * TILE, 16 * TILE, 'SNS', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(30 * TILE, 20 * TILE, 'QA', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(4 * TILE, 20 * TILE, 'CMO', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(16 * TILE, 14 * TILE, 'MEETING\n ROOM', { ...labelStyle, backgroundColor: '#00000088' }).setDepth(1).setAlpha(0.9);
-    this.add.text(15 * TILE, 24 * TILE, 'BREAK AREA', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(5 * TILE, 10 * TILE, 'RESEARCH', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(31 * TILE, 10 * TILE, 'DATA', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(5 * TILE, 14 * TILE, 'CREATIVE', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(31 * TILE, 14 * TILE, 'PR', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(5 * TILE, 18 * TILE, 'COPY', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(31 * TILE, 18 * TILE, 'GROWTH', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(17 * TILE, 18 * TILE, 'SNS', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(31 * TILE, 22 * TILE, 'QA', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(5 * TILE, 22 * TILE, 'CMO', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(17 * TILE, 16 * TILE, 'MEETING\n ROOM', { ...labelStyle, backgroundColor: '#00000088' }).setDepth(1).setAlpha(0.9);
+    this.add.text(16 * TILE, 26 * TILE, 'BREAK AREA', labelStyle).setDepth(1).setAlpha(0.85);
   }
 
   private createPlayer() {
-    const playerPos = this.savedMapData?.player || { x: 20, y: 23 };
+    const playerPos = this.savedMapData?.player || { x: 19, y: 25 };
     const startX = playerPos.x * TILE + TILE / 2;
     const startY = playerPos.y * TILE + TILE / 2;
 
@@ -525,14 +525,14 @@ export class OfficeScene extends Phaser.Scene {
 
   moveAgentsToMeeting(agentIds: string[]) {
     const positions = [
-      { x: 16, y: 14 },
-      { x: 20, y: 14 },
-      { x: 16, y: 18 },
-      { x: 20, y: 18 },
-      { x: 15, y: 16 },
+      { x: 17, y: 16 },
       { x: 21, y: 16 },
-      { x: 17, y: 13 },
-      { x: 19, y: 13 },
+      { x: 17, y: 20 },
+      { x: 21, y: 20 },
+      { x: 16, y: 18 },
+      { x: 22, y: 18 },
+      { x: 18, y: 15 },
+      { x: 20, y: 15 },
     ];
 
     agentIds.forEach((id, i) => {
