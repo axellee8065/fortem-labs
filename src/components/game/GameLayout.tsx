@@ -114,15 +114,24 @@ export default function GameLayout() {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [activeModal, closeModal]);
 
+  const isTaskPanelOpen = useUIStore((s) => s.openPanels.has('task'));
+
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-[#1a1a2e]">
-      {/* Game Canvas (Phaser) */}
-      <GameCanvas onAgentInteract={handleAgentInteract} />
+      {/* HUD Layer (React) - TaskPanel on left */}
+      <TaskPanel />
 
-      {/* HUD Layer (React) */}
+      {/* Game Canvas - offset when task panel is open */}
+      <div
+        className="absolute top-0 bottom-0 right-0 transition-all duration-300"
+        style={{ left: isTaskPanelOpen ? '288px' : '0px' }}
+      >
+        <GameCanvas onAgentInteract={handleAgentInteract} />
+      </div>
+
+      {/* Other HUD */}
       <StatusBar />
       <ChatPanel />
-      <TaskPanel />
       <InteractionHint />
 
       {/* Modals */}
