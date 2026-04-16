@@ -3,21 +3,13 @@ import { OFFICE_MAP, MAP_WIDTH, MAP_HEIGHT, isWalkableTile } from '../systems/of
 import { findPath } from '../systems/pathfinding';
 import { AGENT_CONFIGS, AgentRole } from '@/types/agent';
 import { DEFAULT_GAME_CONFIG } from '@/types/game';
+import { generateAllSprites } from '../systems/spriteGenerator';
 
 const TILE = DEFAULT_GAME_CONFIG.tileSize;
 
-// Color mapping
-const FLOOR_COLOR = 0x3d3225;
-const FLOOR_LIGHT = 0x4a3d2e;
-const WALL_COLOR = 0x5c6b7a;
-const WALL_TOP = 0x4a5568;
-const DESK_COLOR = 0x8B6914;
-const DESK_TOP = 0xa07828;
-const DOOR_COLOR = 0x6B4226;
-
 interface AgentSprite {
   sprite: Phaser.GameObjects.Container;
-  body: Phaser.GameObjects.Rectangle;
+  charImage: Phaser.GameObjects.Image;
   nameTag: Phaser.GameObjects.Text;
   statusIcon: Phaser.GameObjects.Text;
   speechBubble: Phaser.GameObjects.Container | null;
@@ -30,12 +22,11 @@ interface AgentSprite {
 
 export class OfficeScene extends Phaser.Scene {
   private player!: Phaser.GameObjects.Container;
-  private playerBody!: Phaser.GameObjects.Rectangle;
+  private playerImage!: Phaser.GameObjects.Image;
   private cursors!: Phaser.Types.Input.Keyboard.CursorKeys;
   private wasd!: { W: Phaser.Input.Keyboard.Key; A: Phaser.Input.Keyboard.Key; S: Phaser.Input.Keyboard.Key; D: Phaser.Input.Keyboard.Key };
   private interactKey!: Phaser.Input.Keyboard.Key;
   private agentSprites: Map<string, AgentSprite> = new Map();
-  private tileLayer!: Phaser.GameObjects.Graphics;
   private nearbyAgentId: string | null = null;
   private hintText!: Phaser.GameObjects.Text;
   private onAgentInteract: ((agentId: string) => void) | null = null;
@@ -55,6 +46,9 @@ export class OfficeScene extends Phaser.Scene {
   }
 
   create() {
+    // Generate all pixel art textures
+    generateAllSprites(this);
+
     // Draw the office map
     this.drawOfficeMap();
 
@@ -96,8 +90,7 @@ export class OfficeScene extends Phaser.Scene {
   }
 
   private drawOfficeMap() {
-    this.tileLayer = this.add.graphics();
-
+    // Place tile sprites
     for (let y = 0; y < MAP_HEIGHT; y++) {
       for (let x = 0; x < MAP_WIDTH; x++) {
         const px = x * TILE;
@@ -105,66 +98,88 @@ export class OfficeScene extends Phaser.Scene {
         const tile = OFFICE_MAP[y][x];
 
         switch (tile) {
-          case 0: // floor
-            this.tileLayer.fillStyle((x + y) % 2 === 0 ? FLOOR_COLOR : FLOOR_LIGHT);
-            this.tileLayer.fillRect(px, py, TILE, TILE);
+          case 0: { // floor
+            const key = `floor_${(x + y) % 2}`;
+            this.add.image(px, py, key).setOrigin(0, 0).setDepth(0);
             break;
-          case 1: // wall
-            this.tileLayer.fillStyle(WALL_COLOR);
-            this.tileLayer.fillRect(px, py, TILE, TILE);
-            this.tileLayer.fillStyle(WALL_TOP);
-            this.tileLayer.fillRect(px, py, TILE, 4);
+          }
+          case 1: { // wall
+            this.add.image(px, py, 'wall').setOrigin(0, 0).setDepth(0);
             break;
-          case 2: // desk/furniture
-            this.tileLayer.fillStyle((x + y) % 2 === 0 ? FLOOR_COLOR : FLOOR_LIGHT);
-            this.tileLayer.fillRect(px, py, TILE, TILE);
-            this.tileLayer.fillStyle(DESK_COLOR);
-            this.tileLayer.fillRect(px + 2, py + 2, TILE - 4, TILE - 4);
-            this.tileLayer.fillStyle(DESK_TOP);
-            this.tileLayer.fillRect(px + 3, py + 3, TILE - 6, TILE - 6);
+          }
+          case 2: { // desk/furniture
+            // Floor underneath
+            const floorKey = `floor_${(x + y) % 2}`;
+            this.add.image(px, py, floorKey).setOrigin(0, 0).setDepth(0);
+            // Desk on top
+            this.add.image(px, py, 'desk').setOrigin(0, 0).setDepth(5);
             break;
-          case 3: // door
-            this.tileLayer.fillStyle(DOOR_COLOR);
-            this.tileLayer.fillRect(px, py, TILE, TILE);
-            this.tileLayer.fillStyle(0x8B5A2B);
-            this.tileLayer.fillRect(px + 4, py + 2, TILE - 8, TILE - 4);
+          }
+          case 3: { // door
+            this.add.image(px, py, 'door').setOrigin(0, 0).setDepth(0);
             break;
+          }
         }
       }
     }
 
+    // Add decorative plants at corners
+    const plantPositions = [
+      { x: 2, y: 2 }, { x: 37, y: 2 },
+      { x: 2, y: 27 }, { x: 37, y: 27 },
+      { x: 15, y: 7 }, { x: 25, y: 7 },
+      { x: 15, y: 17 }, { x: 25, y: 17 },
+    ];
+    for (const pos of plantPositions) {
+      this.add.image(pos.x * TILE + 8, pos.y * TILE + 4, 'plant').setOrigin(0.5, 0.5).setDepth(10);
+    }
+
+    // Add chairs near desk positions
+    const chairPositions = [
+      { x: 5, y: 6 }, { x: 6, y: 6 },     // Research
+      { x: 33, y: 6 }, { x: 34, y: 6 },     // Data
+      { x: 5, y: 10 }, { x: 6, y: 10 },     // Creative
+      { x: 33, y: 10 }, { x: 34, y: 10 },   // PR
+      { x: 5, y: 14 }, { x: 6, y: 14 },     // Copy
+      { x: 33, y: 14 }, { x: 34, y: 14 },   // Growth
+      { x: 5, y: 18 }, { x: 6, y: 18 },     // SNS
+      { x: 5, y: 22 }, { x: 6, y: 22 },     // CMO
+      { x: 33, y: 18 }, { x: 34, y: 18 },   // QA
+    ];
+    for (const pos of chairPositions) {
+      this.add.image(pos.x * TILE + 8, pos.y * TILE + 8, 'chair').setOrigin(0.5, 0.5).setDepth(4);
+    }
+
     // Draw zone labels
-    const labelStyle = { fontFamily: 'monospace', fontSize: '7px', color: '#ffffff44' };
-    this.add.text(4 * TILE, 3 * TILE, 'RESEARCH', labelStyle);
-    this.add.text(32 * TILE, 3 * TILE, 'DATA', labelStyle);
-    this.add.text(4 * TILE, 7 * TILE, 'CREATIVE', labelStyle);
-    this.add.text(32 * TILE, 7 * TILE, 'PR', labelStyle);
-    this.add.text(4 * TILE, 11 * TILE, 'COPY', labelStyle);
-    this.add.text(32 * TILE, 11 * TILE, 'GROWTH', labelStyle);
-    this.add.text(4 * TILE, 15 * TILE, 'SNS', labelStyle);
-    this.add.text(32 * TILE, 15 * TILE, 'QA', labelStyle);
-    this.add.text(4 * TILE, 19 * TILE, 'CMO', labelStyle);
-    this.add.text(18 * TILE, 10 * TILE, 'MEETING\n ROOM', { ...labelStyle, color: '#ffffff66' });
-    this.add.text(17 * TILE, 21 * TILE, 'BREAK AREA', labelStyle);
+    const labelStyle = { fontFamily: '"Press Start 2P", monospace', fontSize: '6px', color: '#ffffff44' };
+    this.add.text(4 * TILE, 3 * TILE, 'RESEARCH', labelStyle).setDepth(1);
+    this.add.text(32 * TILE, 3 * TILE, 'DATA', labelStyle).setDepth(1);
+    this.add.text(4 * TILE, 7 * TILE, 'CREATIVE', labelStyle).setDepth(1);
+    this.add.text(32 * TILE, 7 * TILE, 'PR', labelStyle).setDepth(1);
+    this.add.text(4 * TILE, 11 * TILE, 'COPY', labelStyle).setDepth(1);
+    this.add.text(32 * TILE, 11 * TILE, 'GROWTH', labelStyle).setDepth(1);
+    this.add.text(4 * TILE, 15 * TILE, 'SNS', labelStyle).setDepth(1);
+    this.add.text(32 * TILE, 15 * TILE, 'QA', labelStyle).setDepth(1);
+    this.add.text(4 * TILE, 19 * TILE, 'CMO', labelStyle).setDepth(1);
+    this.add.text(18 * TILE, 10 * TILE, 'MEETING\n ROOM', { ...labelStyle, color: '#ffffff66' }).setDepth(1);
+    this.add.text(17 * TILE, 21 * TILE, 'BREAK AREA', labelStyle).setDepth(1);
   }
 
   private createPlayer() {
     const startX = 20 * TILE + TILE / 2;
     const startY = 20 * TILE + TILE / 2;
 
-    this.playerBody = this.add.rectangle(0, 0, 20, 24, 0x4488ff);
-    const playerHead = this.add.rectangle(0, -10, 14, 12, 0xffcc88);
-    const playerHair = this.add.rectangle(0, -14, 16, 6, 0x332211);
-    const playerLabel = this.add.text(0, 14, '🧑‍💼 YOU', {
+    this.playerImage = this.add.image(0, -2, 'char_player').setOrigin(0.5, 0.5);
+    const playerLabel = this.add.text(0, 14, 'YOU', {
       fontFamily: '"Press Start 2P", monospace',
       fontSize: '5px',
       color: '#ffffff',
+      backgroundColor: '#4488ffcc',
+      padding: { x: 2, y: 1 },
     }).setOrigin(0.5);
 
     this.player = this.add.container(startX, startY, [
-      this.playerBody,
-      playerHead,
-      playerHair,
+      this.playerImage,
       playerLabel,
     ]).setDepth(50);
   }
@@ -175,28 +190,25 @@ export class OfficeScene extends Phaser.Scene {
       const x = config.deskPosition.x * TILE + TILE / 2;
       const y = config.deskPosition.y * TILE + TILE / 2;
 
-      const color = Phaser.Display.Color.HexStringToColor(config.color).color;
+      const charImage = this.add.image(0, -2, `char_${role}`).setOrigin(0.5, 0.5);
 
-      const body = this.add.rectangle(0, 0, 18, 22, color);
-      const head = this.add.rectangle(0, -9, 12, 10, 0xffcc88);
-
-      const nameTag = this.add.text(0, 16, `${config.emoji} ${config.name.split(' ')[0]}`, {
-        fontFamily: 'monospace',
-        fontSize: '5px',
+      const nameTag = this.add.text(0, 14, `${config.emoji} ${config.name.split(' ')[0]}`, {
+        fontFamily: '"Press Start 2P", monospace',
+        fontSize: '4px',
         color: '#ffffff',
         backgroundColor: config.color + 'cc',
         padding: { x: 2, y: 1 },
       }).setOrigin(0.5);
 
-      const statusIcon = this.add.text(10, -16, '💤', {
+      const statusIcon = this.add.text(10, -14, '💤', {
         fontSize: '8px',
       }).setOrigin(0.5);
 
-      const container = this.add.container(x, y, [body, head, nameTag, statusIcon]).setDepth(40);
+      const container = this.add.container(x, y, [charImage, nameTag, statusIcon]).setDepth(40);
 
       this.agentSprites.set(id, {
         sprite: container,
-        body,
+        charImage,
         nameTag,
         statusIcon,
         speechBubble: null,
@@ -215,7 +227,6 @@ export class OfficeScene extends Phaser.Scene {
         delay: 2000 + Math.random() * 3000,
         callback: () => {
           if (agent.status === 'idle' && !agent.isMoving) {
-            // Small idle bounce
             this.tweens.add({
               targets: agent.sprite,
               y: agent.sprite.y - 2,
@@ -232,12 +243,12 @@ export class OfficeScene extends Phaser.Scene {
   }
 
   update(time: number, delta: number) {
-    this.handlePlayerMovement(delta);
+    this.handlePlayerMovement(time, delta);
     this.checkNearbyAgents();
     this.updateAgentMovement(delta);
   }
 
-  private handlePlayerMovement(delta: number) {
+  private handlePlayerMovement(time: number, delta: number) {
     if (!this.cursors || !this.wasd) return;
 
     const speed = DEFAULT_GAME_CONFIG.playerSpeed;
@@ -251,15 +262,17 @@ export class OfficeScene extends Phaser.Scene {
     else if (this.cursors.down.isDown || this.wasd.S.isDown) vy = 1;
 
     if (vx !== 0 || vy !== 0) {
-      // Normalize diagonal movement
       const len = Math.sqrt(vx * vx + vy * vy);
       vx /= len;
       vy /= len;
 
+      // Flip player sprite based on direction
+      if (vx < 0) this.playerImage.setFlipX(true);
+      else if (vx > 0) this.playerImage.setFlipX(false);
+
       const newX = this.player.x + vx * speed * (delta / 1000);
       const newY = this.player.y + vy * speed * (delta / 1000);
 
-      // Collision check
       const tileX = Math.floor(newX / TILE);
       const tileY = Math.floor(newY / TILE);
 
@@ -267,7 +280,6 @@ export class OfficeScene extends Phaser.Scene {
         this.player.x = newX;
         this.player.y = newY;
       } else {
-        // Try sliding along walls
         const tileXOnly = Math.floor((this.player.x + vx * speed * (delta / 1000)) / TILE);
         const tileYOnly = Math.floor((this.player.y + vy * speed * (delta / 1000)) / TILE);
 
@@ -278,6 +290,11 @@ export class OfficeScene extends Phaser.Scene {
           this.player.y += vy * speed * (delta / 1000);
         }
       }
+
+      // Walking bob animation
+      this.playerImage.y = -2 + Math.sin(time * 0.01) * 1;
+    } else {
+      this.playerImage.y = -2;
     }
   }
 
@@ -350,6 +367,10 @@ export class OfficeScene extends Phaser.Scene {
           agent.pathIndex = 0;
         }
       } else {
+        // Flip character based on movement direction
+        if (dx < 0) agent.charImage.setFlipX(true);
+        else if (dx > 0) agent.charImage.setFlipX(false);
+
         agent.sprite.x += (dx / dist) * speed * (delta / 1000);
         agent.sprite.y += (dy / dist) * speed * (delta / 1000);
       }
@@ -394,7 +415,6 @@ export class OfficeScene extends Phaser.Scene {
     };
     agent.statusIcon.setText(iconMap[status] || '💤');
 
-    // Visual feedback
     if (status === 'assigned') {
       this.tweens.add({
         targets: agent.sprite,
@@ -413,7 +433,6 @@ export class OfficeScene extends Phaser.Scene {
         ease: 'Bounce.easeOut',
       });
     } else if (status === 'working') {
-      // Typing animation
       if (!this.animTimers.has(`work-${agentId}`)) {
         const timer = this.time.addEvent({
           delay: 300,
@@ -438,7 +457,6 @@ export class OfficeScene extends Phaser.Scene {
     const agent = this.agentSprites.get(agentId);
     if (!agent) return;
 
-    // Remove existing bubble
     if (agent.speechBubble) {
       agent.speechBubble.destroy();
     }
@@ -447,8 +465,8 @@ export class OfficeScene extends Phaser.Scene {
     const padding = 6;
 
     const bubbleText = this.add.text(0, 0, text, {
-      fontFamily: 'monospace',
-      fontSize: '5px',
+      fontFamily: '"Press Start 2P", monospace',
+      fontSize: '4px',
       color: '#000000',
       wordWrap: { width: maxWidth - padding * 2 },
     }).setOrigin(0.5);
@@ -463,7 +481,6 @@ export class OfficeScene extends Phaser.Scene {
     bg.lineStyle(1, 0x000000, 0.3);
     bg.strokeRoundedRect(-bgWidth / 2, -bgHeight / 2, bgWidth, bgHeight, 4);
 
-    // Triangle pointer
     bg.fillStyle(0xffffff, 0.95);
     bg.fillTriangle(0, bgHeight / 2, -4, bgHeight / 2 + 6, 4, bgHeight / 2);
 
@@ -475,7 +492,6 @@ export class OfficeScene extends Phaser.Scene {
 
     agent.speechBubble = bubble;
 
-    // Auto-hide after 5 seconds
     this.time.delayedCall(5000, () => {
       if (agent.speechBubble === bubble) {
         bubble.destroy();
