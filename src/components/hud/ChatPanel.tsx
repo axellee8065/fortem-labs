@@ -30,7 +30,7 @@ export default function ChatPanel() {
   if (!isOpen) return null;
 
   return (
-    <div className="absolute top-10 right-0 w-96 h-[calc(100%-120px)] z-40 flex flex-col bg-[#0d0d1a]/95 border-l-2 border-[#7B68EE] font-mono text-xs">
+    <div className="absolute top-10 right-0 w-[480px] h-[calc(100%-120px)] z-40 flex flex-col bg-[#0d0d1a]/95 border-l-2 border-[#7B68EE] font-mono text-xs">
       {/* Header */}
       <div className="flex items-center justify-between px-3 py-2 bg-[#1a1a3e] border-b border-[#7B68EE]/50">
         <div className="flex items-center gap-2">
