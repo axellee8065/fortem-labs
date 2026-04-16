@@ -2,7 +2,7 @@
 // 0 = floor (walkable), 1 = wall, 2 = furniture/desk, 3 = door
 
 const MAP_WIDTH = 40;
-const MAP_HEIGHT = 30;
+const MAP_HEIGHT = 35;
 
 function createDefaultMap(): number[][] {
   const map: number[][] = [];
@@ -18,35 +18,35 @@ function createDefaultMap(): number[][] {
     }
   }
 
-  // Meeting room walls (x 15-23, y 14-22) - centered
-  for (let x = 15; x <= 23; x++) { map[14][x] = 1; map[22][x] = 1; }
-  for (let y = 14; y <= 22; y++) { map[y][15] = 1; map[y][23] = 1; }
-  map[14][19] = 3; map[22][19] = 3; // doors
+  // Meeting room walls (x 15-23, y 16-24)
+  for (let x = 15; x <= 23; x++) { map[16][x] = 1; map[24][x] = 1; }
+  for (let y = 16; y <= 24; y++) { map[y][15] = 1; map[y][23] = 1; }
+  map[16][19] = 3; map[24][19] = 3; // doors
 
   // Meeting table
-  map[17][18] = 2; map[17][19] = 2; map[17][20] = 2;
-  map[18][18] = 2; map[18][19] = 2; map[18][20] = 2;
+  map[19][18] = 2; map[19][19] = 2; map[19][20] = 2;
+  map[20][18] = 2; map[20][19] = 2; map[20][20] = 2;
 
   // Agent desks (left x:6-7, right x:32-33)
   const deskPositions = [
-    { x: 6, y: 11 }, { x: 7, y: 11 },   // Research
-    { x: 32, y: 11 }, { x: 33, y: 11 },  // Data
-    { x: 6, y: 15 }, { x: 7, y: 15 },   // Creative
-    { x: 32, y: 15 }, { x: 33, y: 15 },  // PR
-    { x: 6, y: 19 }, { x: 7, y: 19 },   // Copy
-    { x: 32, y: 19 }, { x: 33, y: 19 },  // Growth
-    { x: 18, y: 19 }, { x: 19, y: 19 },  // SNS
-    { x: 6, y: 23 }, { x: 7, y: 23 },   // CMO
-    { x: 32, y: 23 }, { x: 33, y: 23 },  // QA
+    { x: 6, y: 13 }, { x: 7, y: 13 },   // Research
+    { x: 32, y: 13 }, { x: 33, y: 13 },  // Data
+    { x: 6, y: 17 }, { x: 7, y: 17 },   // Creative
+    { x: 32, y: 17 }, { x: 33, y: 17 },  // PR
+    { x: 6, y: 21 }, { x: 7, y: 21 },   // Copy
+    { x: 32, y: 21 }, { x: 33, y: 21 },  // Growth
+    { x: 18, y: 21 }, { x: 19, y: 21 },  // SNS
+    { x: 6, y: 25 }, { x: 7, y: 25 },   // CMO
+    { x: 32, y: 25 }, { x: 33, y: 25 },  // QA
   ];
   for (const pos of deskPositions) map[pos.y][pos.x] = 2;
 
   // Break area (bottom center)
-  map[27][18] = 2; map[27][19] = 2; map[27][20] = 2; map[27][21] = 2;
-  map[28][19] = 2; map[28][20] = 2;
+  map[29][18] = 2; map[29][19] = 2; map[29][20] = 2; map[29][21] = 2;
+  map[30][19] = 2; map[30][20] = 2;
 
   // Partitions
-  for (let y = 9; y <= 10; y++) { map[y][11] = 1; map[y][29] = 1; }
+  for (let y = 11; y <= 12; y++) { map[y][11] = 1; map[y][29] = 1; }
 
   return map;
 }
