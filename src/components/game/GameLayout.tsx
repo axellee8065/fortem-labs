@@ -124,7 +124,7 @@ export default function GameLayout() {
       {/* Game Canvas - offset when task panel is open */}
       <div
         className="absolute top-0 bottom-0 right-0 transition-all duration-300"
-        style={{ left: isTaskPanelOpen ? '288px' : '0px' }}
+        style={{ left: isTaskPanelOpen ? '320px' : '0px' }}
       >
         <GameCanvas onAgentInteract={handleAgentInteract} />
       </div>

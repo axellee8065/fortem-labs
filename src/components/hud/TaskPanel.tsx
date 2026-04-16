@@ -41,7 +41,7 @@ export default function TaskPanel() {
   };
 
   return (
-    <div className="absolute top-10 left-0 w-72 h-[calc(100%-120px)] z-40 flex flex-col bg-[#0d0d1a]/95 border-r-2 border-[#4A7C59] font-mono text-xs">
+    <div className="absolute top-10 left-0 w-80 h-[calc(100%-120px)] z-40 flex flex-col bg-[#0d0d1a]/95 border-r-2 border-[#4A7C59] font-mono text-xs">
       {/* Header */}
       <div className="flex items-center justify-between px-3 py-2 bg-[#1a2e1a] border-b border-[#4A7C59]/50">
         <span className="text-white font-bold">📋 TASK PROGRESS</span>

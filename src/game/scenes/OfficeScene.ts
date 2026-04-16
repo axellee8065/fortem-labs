@@ -162,15 +162,15 @@ export class OfficeScene extends Phaser.Scene {
       backgroundColor: '#00000066',
       padding: { x: 4, y: 3 },
     };
-    this.add.text(4 * TILE, 7 * TILE, 'RESEARCH', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(4 * TILE, 8 * TILE, 'RESEARCH', labelStyle).setDepth(1).setAlpha(0.85);
     this.add.text(30 * TILE, 8 * TILE, 'DATA', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(4 * TILE, 11 * TILE, 'CREATIVE', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(4 * TILE, 12 * TILE, 'CREATIVE', labelStyle).setDepth(1).setAlpha(0.85);
     this.add.text(30 * TILE, 12 * TILE, 'PR', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(4 * TILE, 15 * TILE, 'COPY', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(4 * TILE, 16 * TILE, 'COPY', labelStyle).setDepth(1).setAlpha(0.85);
     this.add.text(30 * TILE, 16 * TILE, 'GROWTH', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(16 * TILE, 15 * TILE, 'SNS', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(16 * TILE, 16 * TILE, 'SNS', labelStyle).setDepth(1).setAlpha(0.85);
     this.add.text(30 * TILE, 20 * TILE, 'QA', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(4 * TILE, 19 * TILE, 'CMO', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(4 * TILE, 20 * TILE, 'CMO', labelStyle).setDepth(1).setAlpha(0.85);
     this.add.text(16 * TILE, 14 * TILE, 'MEETING\n ROOM', { ...labelStyle, backgroundColor: '#00000088' }).setDepth(1).setAlpha(0.9);
     this.add.text(15 * TILE, 24 * TILE, 'BREAK AREA', labelStyle).setDepth(1).setAlpha(0.85);
   }
