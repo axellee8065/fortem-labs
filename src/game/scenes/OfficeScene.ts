@@ -176,7 +176,7 @@ export class OfficeScene extends Phaser.Scene {
   }
 
   private createPlayer() {
-    const playerPos = this.savedMapData?.player || { x: 19, y: 20 };
+    const playerPos = this.savedMapData?.player || { x: 20, y: 27 };
     const startX = playerPos.x * TILE + TILE / 2;
     const startY = playerPos.y * TILE + TILE / 2;
 
