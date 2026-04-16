@@ -18,26 +18,26 @@ function createDefaultMap(): number[][] {
     }
   }
 
-  // Meeting room walls (center area: x 16-24, y 12-20)
-  for (let x = 16; x <= 24; x++) { map[12][x] = 1; map[20][x] = 1; }
-  for (let y = 12; y <= 20; y++) { map[y][16] = 1; map[y][24] = 1; }
-  map[12][20] = 3; map[20][20] = 3;
+  // Meeting room walls (center area: x 14-22, y 12-20)
+  for (let x = 14; x <= 22; x++) { map[12][x] = 1; map[20][x] = 1; }
+  for (let y = 12; y <= 20; y++) { map[y][14] = 1; map[y][22] = 1; }
+  map[12][18] = 3; map[20][18] = 3;
 
   // Meeting table
-  map[15][19] = 2; map[15][20] = 2; map[15][21] = 2;
-  map[16][19] = 2; map[16][20] = 2; map[16][21] = 2;
+  map[15][17] = 2; map[15][18] = 2; map[15][19] = 2;
+  map[16][17] = 2; map[16][18] = 2; map[16][19] = 2;
 
-  // Agent desks
+  // Agent desks (right side x shifted -2)
   const deskPositions = [
     { x: 5, y: 9 }, { x: 6, y: 9 },
-    { x: 33, y: 9 }, { x: 34, y: 9 },
+    { x: 31, y: 9 }, { x: 32, y: 9 },
     { x: 5, y: 13 }, { x: 6, y: 13 },
-    { x: 33, y: 13 }, { x: 34, y: 13 },
+    { x: 31, y: 13 }, { x: 32, y: 13 },
     { x: 5, y: 17 }, { x: 6, y: 17 },
-    { x: 33, y: 17 }, { x: 34, y: 17 },
-    { x: 19, y: 17 }, { x: 20, y: 17 },
+    { x: 31, y: 17 }, { x: 32, y: 17 },
+    { x: 17, y: 17 }, { x: 18, y: 17 },
     { x: 5, y: 21 }, { x: 6, y: 21 },
-    { x: 33, y: 21 }, { x: 34, y: 21 },
+    { x: 31, y: 21 }, { x: 32, y: 21 },
   ];
   for (const pos of deskPositions) map[pos.y][pos.x] = 2;
 
@@ -46,7 +46,7 @@ function createDefaultMap(): number[][] {
   map[26][19] = 2; map[26][20] = 2;
 
   // Partitions
-  for (let y = 7; y <= 8; y++) { map[y][10] = 1; map[y][30] = 1; }
+  for (let y = 7; y <= 8; y++) { map[y][10] = 1; map[y][28] = 1; }
 
   return map;
 }

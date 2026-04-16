@@ -93,26 +93,26 @@ function getDefaultMapData(): MapData {
   // Build default map from officeMap logic
   const tiles = createDefaultMap();
 
-  // Meeting room walls
-  for (let x = 16; x <= 24; x++) { tiles[12][x] = 1; tiles[20][x] = 1; }
-  for (let y = 12; y <= 20; y++) { tiles[y][16] = 1; tiles[y][24] = 1; }
-  tiles[12][20] = 3; tiles[20][20] = 3;
+  // Meeting room walls (x 14-22)
+  for (let x = 14; x <= 22; x++) { tiles[12][x] = 1; tiles[20][x] = 1; }
+  for (let y = 12; y <= 20; y++) { tiles[y][14] = 1; tiles[y][22] = 1; }
+  tiles[12][18] = 3; tiles[20][18] = 3;
 
   // Meeting table
-  tiles[15][19] = 2; tiles[15][20] = 2; tiles[15][21] = 2;
-  tiles[16][19] = 2; tiles[16][20] = 2; tiles[16][21] = 2;
+  tiles[15][17] = 2; tiles[15][18] = 2; tiles[15][19] = 2;
+  tiles[16][17] = 2; tiles[16][18] = 2; tiles[16][19] = 2;
 
-  // Agent desks
+  // Agent desks (right side shifted -2)
   const deskPositions = [
     { x: 5, y: 9 }, { x: 6, y: 9 },
-    { x: 33, y: 9 }, { x: 34, y: 9 },
+    { x: 31, y: 9 }, { x: 32, y: 9 },
     { x: 5, y: 13 }, { x: 6, y: 13 },
-    { x: 33, y: 13 }, { x: 34, y: 13 },
+    { x: 31, y: 13 }, { x: 32, y: 13 },
     { x: 5, y: 17 }, { x: 6, y: 17 },
-    { x: 33, y: 17 }, { x: 34, y: 17 },
-    { x: 19, y: 17 }, { x: 20, y: 17 },
+    { x: 31, y: 17 }, { x: 32, y: 17 },
+    { x: 17, y: 17 }, { x: 18, y: 17 },
     { x: 5, y: 21 }, { x: 6, y: 21 },
-    { x: 33, y: 21 }, { x: 34, y: 21 },
+    { x: 31, y: 21 }, { x: 32, y: 21 },
   ];
   for (const pos of deskPositions) tiles[pos.y][pos.x] = 2;
 
@@ -121,7 +121,7 @@ function getDefaultMapData(): MapData {
   tiles[26][19] = 2; tiles[26][20] = 2;
 
   // Partitions
-  for (let y = 7; y <= 8; y++) { tiles[y][10] = 1; tiles[y][30] = 1; }
+  for (let y = 7; y <= 8; y++) { tiles[y][10] = 1; tiles[y][28] = 1; }
 
   return { tiles, agents, player: { x: 20, y: 23 } };
 }

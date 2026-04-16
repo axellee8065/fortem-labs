@@ -102,7 +102,7 @@ export const AGENT_CONFIGS: Record<AgentRole, AgentConfig> = {
     emoji: '📊',
     color: '#1ABC9C',
     description: '데이터 분석',
-    deskPosition: { x: 34, y: 10 },
+    deskPosition: { x: 32, y: 10 },
     skills: ['트렌드 분석', '성과 측정', '인사이트 도출'],
   },
   research: {
@@ -122,7 +122,7 @@ export const AGENT_CONFIGS: Record<AgentRole, AgentConfig> = {
     emoji: '📣',
     color: '#E91E63',
     description: '홍보 담당',
-    deskPosition: { x: 34, y: 14 },
+    deskPosition: { x: 32, y: 14 },
     skills: ['보도자료', '언론 대응', '브랜드 이미지'],
   },
   growth_hacker: {
@@ -132,7 +132,7 @@ export const AGENT_CONFIGS: Record<AgentRole, AgentConfig> = {
     emoji: '🎯',
     color: '#00BCD4',
     description: '그로스 전략',
-    deskPosition: { x: 34, y: 18 },
+    deskPosition: { x: 32, y: 18 },
     skills: ['바이럴 전략', 'A/B 테스트', '전환율 최적화'],
   },
   qa_reviewer: {
@@ -142,7 +142,7 @@ export const AGENT_CONFIGS: Record<AgentRole, AgentConfig> = {
     emoji: '✅',
     color: '#27AE60',
     description: '품질 검토',
-    deskPosition: { x: 34, y: 22 },
+    deskPosition: { x: 32, y: 22 },
     skills: ['최종 검토', '오류 체크', '품질 보증'],
   },
 };
