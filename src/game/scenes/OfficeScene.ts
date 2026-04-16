@@ -64,7 +64,7 @@ export class OfficeScene extends Phaser.Scene {
 
     // Set up camera
     this.cameras.main.startFollow(this.player, true, 0.1, 0.1);
-    this.cameras.main.setZoom(2);
+    this.cameras.main.setZoom(1.6);
     this.cameras.main.setBounds(0, 0, MAP_WIDTH * TILE, MAP_HEIGHT * TILE);
 
     // Set up input
@@ -176,7 +176,7 @@ export class OfficeScene extends Phaser.Scene {
   }
 
   private createPlayer() {
-    const playerPos = this.savedMapData?.player || { x: 19, y: 27 };
+    const playerPos = this.savedMapData?.player || { x: 19, y: 20 };
     const startX = playerPos.x * TILE + TILE / 2;
     const startY = playerPos.y * TILE + TILE / 2;
 
