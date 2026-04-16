@@ -18,14 +18,14 @@ function createDefaultMap(): number[][] {
     }
   }
 
-  // Meeting room walls (x 15-23, y 16-24)
-  for (let x = 15; x <= 23; x++) { map[16][x] = 1; map[24][x] = 1; }
-  for (let y = 16; y <= 24; y++) { map[y][15] = 1; map[y][23] = 1; }
-  map[16][19] = 3; map[24][19] = 3; // doors
+  // Meeting room walls (x 16-24, y 16-24)
+  for (let x = 16; x <= 24; x++) { map[16][x] = 1; map[24][x] = 1; }
+  for (let y = 16; y <= 24; y++) { map[y][16] = 1; map[y][24] = 1; }
+  map[16][20] = 3; map[24][20] = 3; // doors
 
   // Meeting table
-  map[19][18] = 2; map[19][19] = 2; map[19][20] = 2;
-  map[20][18] = 2; map[20][19] = 2; map[20][20] = 2;
+  map[19][19] = 2; map[19][20] = 2; map[19][21] = 2;
+  map[20][19] = 2; map[20][20] = 2; map[20][21] = 2;
 
   // Agent desks (left x:6-7, right x:32-33)
   const deskPositions = [

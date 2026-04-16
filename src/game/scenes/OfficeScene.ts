@@ -131,8 +131,8 @@ export class OfficeScene extends Phaser.Scene {
     const plantPositions = [
       { x: 3, y: 10 }, { x: 36, y: 10 },
       { x: 3, y: 29 }, { x: 36, y: 29 },
-      { x: 14, y: 15 }, { x: 24, y: 15 },
-      { x: 14, y: 25 }, { x: 24, y: 25 },
+      { x: 15, y: 15 }, { x: 25, y: 15 },
+      { x: 15, y: 25 }, { x: 25, y: 25 },
     ];
     for (const pos of plantPositions) {
       this.add.image(pos.x * TILE + 8, pos.y * TILE + 4, 'plant').setOrigin(0.5, 0.5).setDepth(10);
@@ -171,7 +171,7 @@ export class OfficeScene extends Phaser.Scene {
     this.add.text(17 * TILE, 20 * TILE, 'SNS', labelStyle).setDepth(1).setAlpha(0.85);
     this.add.text(31 * TILE, 24 * TILE, 'QA', labelStyle).setDepth(1).setAlpha(0.85);
     this.add.text(5 * TILE, 24 * TILE, 'CMO', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(17 * TILE, 18 * TILE, 'MEETING\n ROOM', { ...labelStyle, backgroundColor: '#00000088' }).setDepth(1).setAlpha(0.9);
+    this.add.text(18 * TILE, 18 * TILE, 'MEETING\n ROOM', { ...labelStyle, backgroundColor: '#00000088' }).setDepth(1).setAlpha(0.9);
     this.add.text(16 * TILE, 28 * TILE, 'BREAK AREA', labelStyle).setDepth(1).setAlpha(0.85);
   }
 
@@ -525,14 +525,14 @@ export class OfficeScene extends Phaser.Scene {
 
   moveAgentsToMeeting(agentIds: string[]) {
     const positions = [
-      { x: 17, y: 18 },
-      { x: 21, y: 18 },
-      { x: 17, y: 22 },
-      { x: 21, y: 22 },
-      { x: 16, y: 20 },
-      { x: 22, y: 20 },
-      { x: 18, y: 17 },
-      { x: 20, y: 17 },
+      { x: 18, y: 18 },
+      { x: 22, y: 18 },
+      { x: 18, y: 22 },
+      { x: 22, y: 22 },
+      { x: 17, y: 20 },
+      { x: 23, y: 20 },
+      { x: 19, y: 17 },
+      { x: 21, y: 17 },
     ];
 
     agentIds.forEach((id, i) => {

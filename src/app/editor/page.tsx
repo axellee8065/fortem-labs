@@ -93,14 +93,14 @@ function getDefaultMapData(): MapData {
   // Build default map from officeMap logic
   const tiles = createDefaultMap();
 
-  // Meeting room walls (x 15-23, y 16-24)
-  for (let x = 15; x <= 23; x++) { tiles[16][x] = 1; tiles[24][x] = 1; }
-  for (let y = 16; y <= 24; y++) { tiles[y][15] = 1; tiles[y][23] = 1; }
-  tiles[16][19] = 3; tiles[24][19] = 3;
+  // Meeting room walls (x 16-24, y 16-24)
+  for (let x = 16; x <= 24; x++) { tiles[16][x] = 1; tiles[24][x] = 1; }
+  for (let y = 16; y <= 24; y++) { tiles[y][16] = 1; tiles[y][24] = 1; }
+  tiles[16][20] = 3; tiles[24][20] = 3;
 
   // Meeting table
-  tiles[19][18] = 2; tiles[19][19] = 2; tiles[19][20] = 2;
-  tiles[20][18] = 2; tiles[20][19] = 2; tiles[20][20] = 2;
+  tiles[19][19] = 2; tiles[19][20] = 2; tiles[19][21] = 2;
+  tiles[20][19] = 2; tiles[20][20] = 2; tiles[20][21] = 2;
 
   // Agent desks (left x:6-7, right x:32-33)
   const deskPositions = [
