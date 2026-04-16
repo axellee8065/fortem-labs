@@ -123,12 +123,12 @@ export class OfficeScene extends Phaser.Scene {
       }
     }
 
-    // Add decorative plants at corners
+    // Add decorative plants
     const plantPositions = [
-      { x: 2, y: 2 }, { x: 37, y: 2 },
+      { x: 2, y: 6 }, { x: 37, y: 6 },
       { x: 2, y: 27 }, { x: 37, y: 27 },
-      { x: 15, y: 7 }, { x: 25, y: 7 },
-      { x: 15, y: 17 }, { x: 25, y: 17 },
+      { x: 15, y: 11 }, { x: 25, y: 11 },
+      { x: 15, y: 21 }, { x: 25, y: 21 },
     ];
     for (const pos of plantPositions) {
       this.add.image(pos.x * TILE + 8, pos.y * TILE + 4, 'plant').setOrigin(0.5, 0.5).setDepth(10);
@@ -136,15 +136,15 @@ export class OfficeScene extends Phaser.Scene {
 
     // Add chairs near desk positions
     const chairPositions = [
-      { x: 5, y: 6 }, { x: 6, y: 6 },     // Research
-      { x: 33, y: 6 }, { x: 34, y: 6 },     // Data
-      { x: 5, y: 10 }, { x: 6, y: 10 },     // Creative
-      { x: 33, y: 10 }, { x: 34, y: 10 },   // PR
-      { x: 5, y: 14 }, { x: 6, y: 14 },     // Copy
-      { x: 33, y: 14 }, { x: 34, y: 14 },   // Growth
-      { x: 5, y: 18 }, { x: 6, y: 18 },     // SNS
+      { x: 5, y: 10 }, { x: 6, y: 10 },     // Research
+      { x: 33, y: 10 }, { x: 34, y: 10 },   // Data
+      { x: 5, y: 14 }, { x: 6, y: 14 },     // Creative
+      { x: 33, y: 14 }, { x: 34, y: 14 },   // PR
+      { x: 5, y: 18 }, { x: 6, y: 18 },     // Copy
+      { x: 33, y: 18 }, { x: 34, y: 18 },   // Growth
+      { x: 19, y: 18 }, { x: 20, y: 18 },   // SNS
       { x: 5, y: 22 }, { x: 6, y: 22 },     // CMO
-      { x: 33, y: 18 }, { x: 34, y: 18 },   // QA
+      { x: 33, y: 22 }, { x: 34, y: 22 },   // QA
     ];
     for (const pos of chairPositions) {
       this.add.image(pos.x * TILE + 8, pos.y * TILE + 8, 'chair').setOrigin(0.5, 0.5).setDepth(4);
@@ -158,22 +158,22 @@ export class OfficeScene extends Phaser.Scene {
       backgroundColor: '#00000066',
       padding: { x: 4, y: 3 },
     };
-    this.add.text(4 * TILE, 3 * TILE, 'RESEARCH', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(32 * TILE, 3 * TILE, 'DATA', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(4 * TILE, 7 * TILE, 'CREATIVE', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(32 * TILE, 7 * TILE, 'PR', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(4 * TILE, 11 * TILE, 'COPY', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(32 * TILE, 11 * TILE, 'GROWTH', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(4 * TILE, 15 * TILE, 'SNS', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(32 * TILE, 15 * TILE, 'QA', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(4 * TILE, 7 * TILE, 'RESEARCH', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(32 * TILE, 7 * TILE, 'DATA', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(4 * TILE, 11 * TILE, 'CREATIVE', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(32 * TILE, 11 * TILE, 'PR', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(4 * TILE, 15 * TILE, 'COPY', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(32 * TILE, 15 * TILE, 'GROWTH', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(18 * TILE, 15 * TILE, 'SNS', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(32 * TILE, 19 * TILE, 'QA', labelStyle).setDepth(1).setAlpha(0.85);
     this.add.text(4 * TILE, 19 * TILE, 'CMO', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(18 * TILE, 10 * TILE, 'MEETING\n ROOM', { ...labelStyle, backgroundColor: '#00000088' }).setDepth(1).setAlpha(0.9);
-    this.add.text(17 * TILE, 21 * TILE, 'BREAK AREA', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(18 * TILE, 14 * TILE, 'MEETING\n ROOM', { ...labelStyle, backgroundColor: '#00000088' }).setDepth(1).setAlpha(0.9);
+    this.add.text(17 * TILE, 24 * TILE, 'BREAK AREA', labelStyle).setDepth(1).setAlpha(0.85);
   }
 
   private createPlayer() {
     const startX = 20 * TILE + TILE / 2;
-    const startY = 20 * TILE + TILE / 2;
+    const startY = 23 * TILE + TILE / 2;
 
     this.playerImage = this.add.image(0, -2, 'char_player').setOrigin(0.5, 0.5);
     const playerLabel = this.add.text(0, 16, '🧑‍💼 YOU', {
@@ -517,14 +517,14 @@ export class OfficeScene extends Phaser.Scene {
 
   moveAgentsToMeeting(agentIds: string[]) {
     const positions = [
-      { x: 18, y: 10 },
-      { x: 22, y: 10 },
       { x: 18, y: 14 },
       { x: 22, y: 14 },
-      { x: 17, y: 12 },
-      { x: 23, y: 12 },
-      { x: 19, y: 9 },
-      { x: 21, y: 9 },
+      { x: 18, y: 18 },
+      { x: 22, y: 18 },
+      { x: 17, y: 16 },
+      { x: 23, y: 16 },
+      { x: 19, y: 13 },
+      { x: 21, y: 13 },
     ];
 
     agentIds.forEach((id, i) => {

@@ -20,47 +20,47 @@ function createOfficeMap(): number[][] {
   }
 
   // Inner walls for rooms
-  // Meeting room walls (center area: x 16-24, y 8-16)
+  // Meeting room walls (center area: x 16-24, y 12-20)
   for (let x = 16; x <= 24; x++) {
-    map[8][x] = 1;
-    map[16][x] = 1;
+    map[12][x] = 1;
+    map[20][x] = 1;
   }
-  for (let y = 8; y <= 16; y++) {
+  for (let y = 12; y <= 20; y++) {
     map[y][16] = 1;
     map[y][24] = 1;
   }
   // Meeting room doors
-  map[8][20] = 3;  // top door
-  map[16][20] = 3; // bottom door
+  map[12][20] = 3;  // top door
+  map[20][20] = 3;  // bottom door
 
   // Meeting table (center of meeting room)
-  map[11][19] = 2;
-  map[11][20] = 2;
-  map[11][21] = 2;
-  map[12][19] = 2;
-  map[12][20] = 2;
-  map[12][21] = 2;
+  map[15][19] = 2;
+  map[15][20] = 2;
+  map[15][21] = 2;
+  map[16][19] = 2;
+  map[16][20] = 2;
+  map[16][21] = 2;
 
-  // Agent desks
+  // Agent desks (shifted down by +4)
   const deskPositions = [
-    // Research desk (top-left)
-    { x: 5, y: 5 }, { x: 6, y: 5 },
-    // Data desk (top-right)
-    { x: 33, y: 5 }, { x: 34, y: 5 },
-    // Creative desk (mid-left)
+    // Research desk (left)
     { x: 5, y: 9 }, { x: 6, y: 9 },
-    // PR desk (mid-right)
+    // Data desk (right)
     { x: 33, y: 9 }, { x: 34, y: 9 },
-    // Copy desk (lower-left)
+    // Creative desk (left)
     { x: 5, y: 13 }, { x: 6, y: 13 },
-    // Growth desk (lower-right)
+    // PR desk (right)
     { x: 33, y: 13 }, { x: 34, y: 13 },
-    // SNS desk (bottom mid-left)
+    // Copy desk (left)
     { x: 5, y: 17 }, { x: 6, y: 17 },
-    // CMO desk (bottom-left)
-    { x: 5, y: 21 }, { x: 6, y: 21 },
-    // QA desk (bottom-right)
+    // Growth desk (right)
     { x: 33, y: 17 }, { x: 34, y: 17 },
+    // SNS desk (center)
+    { x: 19, y: 17 }, { x: 20, y: 17 },
+    // CMO desk (left)
+    { x: 5, y: 21 }, { x: 6, y: 21 },
+    // QA desk (right)
+    { x: 33, y: 21 }, { x: 34, y: 21 },
   ];
 
   for (const pos of deskPositions) {
@@ -68,19 +68,18 @@ function createOfficeMap(): number[][] {
   }
 
   // Break area furniture (bottom center)
-  map[22][18] = 2; // sofa
-  map[22][19] = 2;
-  map[22][20] = 2;
-  map[22][21] = 2;
-  map[23][19] = 2; // coffee table
-  map[23][20] = 2;
+  map[25][18] = 2; // sofa
+  map[25][19] = 2;
+  map[25][20] = 2;
+  map[25][21] = 2;
+  map[26][19] = 2; // coffee table
+  map[26][20] = 2;
 
   // Decorative walls / partitions
-  // Left column
-  for (let y = 3; y <= 4; y++) {
+  for (let y = 7; y <= 8; y++) {
     map[y][10] = 1;
   }
-  for (let y = 3; y <= 4; y++) {
+  for (let y = 7; y <= 8; y++) {
     map[y][30] = 1;
   }
 
