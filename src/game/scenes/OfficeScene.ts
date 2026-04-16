@@ -151,18 +151,24 @@ export class OfficeScene extends Phaser.Scene {
     }
 
     // Draw zone labels
-    const labelStyle = { fontFamily: '"Press Start 2P", monospace', fontSize: '6px', color: '#ffffff44' };
-    this.add.text(4 * TILE, 3 * TILE, 'RESEARCH', labelStyle).setDepth(1);
-    this.add.text(32 * TILE, 3 * TILE, 'DATA', labelStyle).setDepth(1);
-    this.add.text(4 * TILE, 7 * TILE, 'CREATIVE', labelStyle).setDepth(1);
-    this.add.text(32 * TILE, 7 * TILE, 'PR', labelStyle).setDepth(1);
-    this.add.text(4 * TILE, 11 * TILE, 'COPY', labelStyle).setDepth(1);
-    this.add.text(32 * TILE, 11 * TILE, 'GROWTH', labelStyle).setDepth(1);
-    this.add.text(4 * TILE, 15 * TILE, 'SNS', labelStyle).setDepth(1);
-    this.add.text(32 * TILE, 15 * TILE, 'QA', labelStyle).setDepth(1);
-    this.add.text(4 * TILE, 19 * TILE, 'CMO', labelStyle).setDepth(1);
-    this.add.text(18 * TILE, 10 * TILE, 'MEETING\n ROOM', { ...labelStyle, color: '#ffffff66' }).setDepth(1);
-    this.add.text(17 * TILE, 21 * TILE, 'BREAK AREA', labelStyle).setDepth(1);
+    const labelStyle: Phaser.Types.GameObjects.Text.TextStyle = {
+      fontFamily: '"Press Start 2P", monospace',
+      fontSize: '8px',
+      color: '#ffffff',
+      backgroundColor: '#00000066',
+      padding: { x: 4, y: 3 },
+    };
+    this.add.text(4 * TILE, 3 * TILE, 'RESEARCH', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(32 * TILE, 3 * TILE, 'DATA', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(4 * TILE, 7 * TILE, 'CREATIVE', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(32 * TILE, 7 * TILE, 'PR', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(4 * TILE, 11 * TILE, 'COPY', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(32 * TILE, 11 * TILE, 'GROWTH', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(4 * TILE, 15 * TILE, 'SNS', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(32 * TILE, 15 * TILE, 'QA', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(4 * TILE, 19 * TILE, 'CMO', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(18 * TILE, 10 * TILE, 'MEETING\n ROOM', { ...labelStyle, backgroundColor: '#00000088' }).setDepth(1).setAlpha(0.9);
+    this.add.text(17 * TILE, 21 * TILE, 'BREAK AREA', labelStyle).setDepth(1).setAlpha(0.85);
   }
 
   private createPlayer() {
@@ -170,12 +176,13 @@ export class OfficeScene extends Phaser.Scene {
     const startY = 20 * TILE + TILE / 2;
 
     this.playerImage = this.add.image(0, -2, 'char_player').setOrigin(0.5, 0.5);
-    const playerLabel = this.add.text(0, 14, 'YOU', {
+    const playerLabel = this.add.text(0, 16, '🧑‍💼 YOU', {
       fontFamily: '"Press Start 2P", monospace',
-      fontSize: '5px',
+      fontSize: '6px',
       color: '#ffffff',
-      backgroundColor: '#4488ffcc',
-      padding: { x: 2, y: 1 },
+      backgroundColor: '#4488ffdd',
+      padding: { x: 3, y: 2 },
+      shadow: { offsetX: 1, offsetY: 1, color: '#000000', blur: 0, fill: true, stroke: false },
     }).setOrigin(0.5);
 
     this.player = this.add.container(startX, startY, [
@@ -192,12 +199,13 @@ export class OfficeScene extends Phaser.Scene {
 
       const charImage = this.add.image(0, -2, `char_${role}`).setOrigin(0.5, 0.5);
 
-      const nameTag = this.add.text(0, 14, `${config.emoji} ${config.name.split(' ')[0]}`, {
+      const nameTag = this.add.text(0, 16, `${config.emoji} ${config.name.split(' ')[0]}`, {
         fontFamily: '"Press Start 2P", monospace',
-        fontSize: '4px',
+        fontSize: '6px',
         color: '#ffffff',
-        backgroundColor: config.color + 'cc',
-        padding: { x: 2, y: 1 },
+        backgroundColor: config.color + 'dd',
+        padding: { x: 3, y: 2 },
+        shadow: { offsetX: 1, offsetY: 1, color: '#000000', blur: 0, fill: true, stroke: false },
       }).setOrigin(0.5);
 
       const statusIcon = this.add.text(10, -14, '💤', {
