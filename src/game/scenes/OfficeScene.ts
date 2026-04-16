@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import { OFFICE_MAP, MAP_WIDTH, MAP_HEIGHT, isWalkableTile } from '../systems/officeMap';
+import { MAP_WIDTH, MAP_HEIGHT, isWalkableTile, loadSavedMap, getMap } from '../systems/officeMap';
 import { findPath } from '../systems/pathfinding';
 import { AGENT_CONFIGS, AgentRole } from '@/types/agent';
 import { DEFAULT_GAME_CONFIG } from '@/types/game';
@@ -32,6 +32,7 @@ export class OfficeScene extends Phaser.Scene {
   private onAgentInteract: ((agentId: string) => void) | null = null;
   private onNearbyAgentChange: ((agentId: string | null) => void) | null = null;
   private animTimers: Map<string, Phaser.Time.TimerEvent> = new Map();
+  private savedMapData: ReturnType<typeof loadSavedMap> | null = null;
 
   constructor() {
     super({ key: 'OfficeScene' });
@@ -46,6 +47,9 @@ export class OfficeScene extends Phaser.Scene {
   }
 
   create() {
+    // Load saved map data from editor
+    this.savedMapData = loadSavedMap();
+
     // Generate all pixel art textures
     generateAllSprites(this);
 
@@ -95,7 +99,7 @@ export class OfficeScene extends Phaser.Scene {
       for (let x = 0; x < MAP_WIDTH; x++) {
         const px = x * TILE;
         const py = y * TILE;
-        const tile = OFFICE_MAP[y][x];
+        const tile = getMap()[y][x];
 
         switch (tile) {
           case 0: { // floor
@@ -172,8 +176,9 @@ export class OfficeScene extends Phaser.Scene {
   }
 
   private createPlayer() {
-    const startX = 20 * TILE + TILE / 2;
-    const startY = 23 * TILE + TILE / 2;
+    const playerPos = this.savedMapData?.player || { x: 20, y: 23 };
+    const startX = playerPos.x * TILE + TILE / 2;
+    const startY = playerPos.y * TILE + TILE / 2;
 
     this.playerImage = this.add.image(0, -2, 'char_player').setOrigin(0.5, 0.5);
     const playerLabel = this.add.text(0, 16, '🧑‍💼 YOU', {
@@ -194,8 +199,11 @@ export class OfficeScene extends Phaser.Scene {
   private createAgents() {
     for (const [role, config] of Object.entries(AGENT_CONFIGS)) {
       const id = `agent-${role}`;
-      const x = config.deskPosition.x * TILE + TILE / 2;
-      const y = config.deskPosition.y * TILE + TILE / 2;
+      const savedAgent = this.savedMapData?.agents?.find(a => a.role === role);
+      const posX = savedAgent?.x ?? config.deskPosition.x;
+      const posY = savedAgent?.y ?? config.deskPosition.y;
+      const x = posX * TILE + TILE / 2;
+      const y = posY * TILE + TILE / 2;
 
       const charImage = this.add.image(0, -2, `char_${role}`).setOrigin(0.5, 0.5);
 
