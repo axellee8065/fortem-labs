@@ -92,7 +92,7 @@ export const AGENT_CONFIGS: Record<AgentRole, AgentConfig> = {
     emoji: '📱',
     color: '#9B59B6',
     description: 'SNS 운영',
-    deskPosition: { x: 19, y: 22 },
+    deskPosition: { x: 19, y: 24 },
     skills: ['플랫폼 최적화', '해시태그', '포스팅 타이밍'],
   },
   data_analyst: {
