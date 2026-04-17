@@ -4,7 +4,11 @@ import { useTaskStore } from '@/stores/taskStore';
 import { useUIStore } from '@/stores/uiStore';
 import { AGENT_CONFIGS, AgentRole } from '@/types/agent';
 
-export default function TaskPanel() {
+interface TaskPanelProps {
+  onViewTask?: (taskId: string) => void;
+}
+
+export default function TaskPanel({ onViewTask }: TaskPanelProps) {
   const tasks = useTaskStore((s) => s.tasks);
   const activeTaskId = useTaskStore((s) => s.activeTaskId);
   const setActiveTask = useTaskStore((s) => s.setActiveTask);
@@ -124,10 +128,10 @@ export default function TaskPanel() {
         ) : (
           <div className="p-2 space-y-1">
             {taskList.map((task) => (
-              <button
+              <div
                 key={task.id}
                 onClick={() => setActiveTask(task.id)}
-                className={`w-full text-left p-2 rounded transition-colors ${
+                className={`w-full text-left p-2 rounded transition-colors cursor-pointer ${
                   task.id === activeTaskId
                     ? 'bg-[#1a2e1a] border border-[#4A7C59]'
                     : 'bg-[#0f0f1a] hover:bg-[#1a1a2e] border border-transparent'
@@ -147,7 +151,15 @@ export default function TaskPanel() {
                     style={{ width: `${task.progress}%` }}
                   />
                 </div>
-              </button>
+                {onViewTask && (
+                  <button
+                    onClick={(e) => { e.stopPropagation(); onViewTask(task.id); }}
+                    className="mt-1.5 w-full px-2 py-1 bg-[#7B68EE22] text-[#7B68EE] rounded text-[10px] hover:bg-[#7B68EE33] transition-colors"
+                  >
+                    📄 결과 보기
+                  </button>
+                )}
+              </div>
             ))}
           </div>
         )}

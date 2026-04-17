@@ -9,6 +9,7 @@ import InteractionHint from '@/components/hud/InteractionHint';
 import TaskAssignModal from '@/components/modals/TaskAssignModal';
 import ApprovalModal from '@/components/modals/ApprovalModal';
 import GuideModal from '@/components/modals/GuideModal';
+import ResultViewerModal from '@/components/modals/ResultViewerModal';
 import { useUIStore } from '@/stores/uiStore';
 import { useTaskStore } from '@/stores/taskStore';
 import { useAgentStore } from '@/stores/agentStore';
@@ -30,6 +31,7 @@ export default function GameLayout() {
   const closeModal = useUIStore((s) => s.closeModal);
   const [selectedAgentId, setSelectedAgentId] = useState<string | null>(null);
   const [pendingApprovalTaskId, setPendingApprovalTaskId] = useState<string | null>(null);
+  const [viewingTaskId, setViewingTaskId] = useState<string | null>(null);
   const [showGuide, setShowGuide] = useState(() => {
     if (typeof window === 'undefined') return true;
     return !localStorage.getItem('fortem-guide-seen');
@@ -124,7 +126,7 @@ export default function GameLayout() {
   return (
     <div className="relative w-screen h-screen overflow-hidden bg-[#1a1a2e]">
       {/* HUD Layer (React) - TaskPanel on left */}
-      <TaskPanel />
+      <TaskPanel onViewTask={(id) => setViewingTaskId(id)} />
 
       {/* Game Canvas - offset when task panel is open */}
       <div
@@ -153,6 +155,14 @@ export default function GameLayout() {
           onApprove={handleApprove}
           onReject={handleReject}
           onRevise={handleRevise}
+        />
+      )}
+
+      {/* Result Viewer Modal */}
+      {viewingTaskId && (
+        <ResultViewerModal
+          taskId={viewingTaskId}
+          onClose={() => setViewingTaskId(null)}
         />
       )}
 
