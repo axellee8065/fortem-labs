@@ -270,6 +270,12 @@ export class OfficeScene extends Phaser.Scene {
   private handlePlayerMovement(time: number, delta: number) {
     if (!this.cursors || !this.wasd) return;
 
+    // Don't process input when a modal/input is focused
+    const activeEl = document.activeElement;
+    if (activeEl && (activeEl.tagName === 'INPUT' || activeEl.tagName === 'TEXTAREA' || activeEl.tagName === 'SELECT')) {
+      return;
+    }
+
     const speed = DEFAULT_GAME_CONFIG.playerSpeed;
     let vx = 0;
     let vy = 0;

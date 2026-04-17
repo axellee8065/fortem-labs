@@ -41,6 +41,11 @@ export function createGame(
       antialias: false,
       roundPixels: true,
     },
+    input: {
+      keyboard: {
+        capture: [], // Don't capture any keys globally - let DOM handle them
+      },
+    },
   };
 
   gameInstance = new Phaser.Game(config);

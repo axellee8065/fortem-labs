@@ -80,11 +80,14 @@ export default function TaskAssignModal({ agentId, onAssign }: TaskAssignModalPr
             className="w-full h-20 px-3 py-2 bg-[#1a1a2e] border-2 border-[#333] rounded text-white text-sm focus:border-[#7B68EE] focus:outline-none resize-none placeholder-gray-600"
             autoFocus
             onKeyDown={(e) => {
+              e.stopPropagation();
               if (e.key === 'Enter' && !e.shiftKey) {
                 e.preventDefault();
                 handleSubmit();
               }
             }}
+            onKeyUp={(e) => e.stopPropagation()}
+            onKeyPress={(e) => e.stopPropagation()}
           />
 
           {/* Suggestions */}
