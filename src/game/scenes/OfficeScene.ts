@@ -146,7 +146,7 @@ export class OfficeScene extends Phaser.Scene {
       { x: 32, y: 18 }, { x: 33, y: 18 },   // PR
       { x: 6, y: 22 }, { x: 7, y: 22 },     // Copy
       { x: 32, y: 22 }, { x: 33, y: 22 },   // Growth
-      { x: 18, y: 24 }, { x: 19, y: 24 },   // SNS
+      { x: 18, y: 26 }, { x: 19, y: 26 },   // SNS
       { x: 6, y: 26 }, { x: 7, y: 26 },     // CMO
       { x: 32, y: 26 }, { x: 33, y: 26 },   // QA
     ];
@@ -168,10 +168,11 @@ export class OfficeScene extends Phaser.Scene {
     this.add.text(31 * TILE, 16 * TILE, 'PR', labelStyle).setDepth(1).setAlpha(0.85);
     this.add.text(5 * TILE, 20 * TILE, 'COPY', labelStyle).setDepth(1).setAlpha(0.85);
     this.add.text(31 * TILE, 20 * TILE, 'GROWTH', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(17 * TILE, 22 * TILE, 'SNS', labelStyle).setDepth(1).setAlpha(0.85);
+    this.add.text(17 * TILE, 24 * TILE, 'SNS', labelStyle).setDepth(1).setAlpha(0.85);
     this.add.text(31 * TILE, 24 * TILE, 'QA', labelStyle).setDepth(1).setAlpha(0.85);
     this.add.text(5 * TILE, 24 * TILE, 'CMO', labelStyle).setDepth(1).setAlpha(0.85);
-    this.add.text(17 * TILE, 17 * TILE, 'MEETING\n ROOM', { ...labelStyle, backgroundColor: '#00000088' }).setDepth(1).setAlpha(0.9);
+    this.add.text(17 * TILE, 15 * TILE, 'CEO\nOFFICE', { ...labelStyle, backgroundColor: '#2C3E50cc' }).setDepth(1).setAlpha(0.9);
+    this.add.text(17 * TILE, 20 * TILE, 'MEETING\n ROOM', { ...labelStyle, backgroundColor: '#00000088' }).setDepth(1).setAlpha(0.9);
     this.add.text(16 * TILE, 28 * TILE, 'BREAK AREA', labelStyle).setDepth(1).setAlpha(0.85);
   }
 
@@ -527,14 +528,14 @@ export class OfficeScene extends Phaser.Scene {
 
   moveAgentsToMeeting(agentIds: string[]) {
     const positions = [
-      { x: 17, y: 17 },
-      { x: 21, y: 17 },
-      { x: 17, y: 21 },
-      { x: 21, y: 21 },
-      { x: 16, y: 19 },
-      { x: 22, y: 19 },
-      { x: 18, y: 16 },
-      { x: 20, y: 16 },
+      { x: 17, y: 20 },
+      { x: 21, y: 20 },
+      { x: 17, y: 22 },
+      { x: 21, y: 22 },
+      { x: 16, y: 21 },
+      { x: 22, y: 21 },
+      { x: 18, y: 20 },
+      { x: 20, y: 20 },
     ];
 
     agentIds.forEach((id, i) => {

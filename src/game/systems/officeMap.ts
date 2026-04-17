@@ -18,14 +18,22 @@ function createDefaultMap(): number[][] {
     }
   }
 
-  // Meeting room walls (x 15-23, y 15-23)
-  for (let x = 15; x <= 23; x++) { map[15][x] = 1; map[23][x] = 1; }
-  for (let y = 15; y <= 23; y++) { map[y][15] = 1; map[y][23] = 1; }
-  map[15][19] = 3; map[23][19] = 3; // doors
+  // CEO Office (top: x 15-23, y 15-19)
+  for (let x = 15; x <= 23; x++) { map[15][x] = 1; map[19][x] = 1; }
+  for (let y = 15; y <= 19; y++) { map[y][15] = 1; map[y][23] = 1; }
+  map[15][19] = 3; // CEO office door (top)
+
+  // CEO desk
+  map[17][18] = 2; map[17][19] = 2; map[17][20] = 2;
+
+  // Meeting Room (bottom: x 15-23, y 19-23)
+  for (let x = 15; x <= 23; x++) { map[23][x] = 1; }
+  for (let y = 19; y <= 23; y++) { map[y][15] = 1; map[y][23] = 1; }
+  map[19][19] = 3; // divider door
+  map[23][19] = 3; // meeting room door (bottom)
 
   // Meeting table
-  map[18][18] = 2; map[18][19] = 2; map[18][20] = 2;
-  map[19][18] = 2; map[19][19] = 2; map[19][20] = 2;
+  map[21][18] = 2; map[21][19] = 2; map[21][20] = 2;
 
   // Agent desks (left x:6-7, right x:32-33)
   const deskPositions = [
@@ -35,7 +43,7 @@ function createDefaultMap(): number[][] {
     { x: 32, y: 17 }, { x: 33, y: 17 },  // PR
     { x: 6, y: 21 }, { x: 7, y: 21 },   // Copy
     { x: 32, y: 21 }, { x: 33, y: 21 },  // Growth
-    { x: 18, y: 23 }, { x: 19, y: 23 },  // SNS
+    { x: 18, y: 25 }, { x: 19, y: 25 },  // SNS
     { x: 6, y: 25 }, { x: 7, y: 25 },   // CMO
     { x: 32, y: 25 }, { x: 33, y: 25 },  // QA
   ];

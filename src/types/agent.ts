@@ -52,7 +52,7 @@ export const AGENT_CONFIGS: Record<AgentRole, AgentConfig> = {
     emoji: '👔',
     color: '#2C3E50',
     description: '전략 총괄 및 의사결정',
-    deskPosition: { x: 19, y: 18 },
+    deskPosition: { x: 19, y: 16 },
     skills: ['전략 방향 설정', '태스크 분배', '최종 검토'],
   },
   cmo: {
@@ -92,7 +92,7 @@ export const AGENT_CONFIGS: Record<AgentRole, AgentConfig> = {
     emoji: '📱',
     color: '#9B59B6',
     description: 'SNS 운영',
-    deskPosition: { x: 19, y: 24 },
+    deskPosition: { x: 19, y: 26 },
     skills: ['플랫폼 최적화', '해시태그', '포스팅 타이밍'],
   },
   data_analyst: {
