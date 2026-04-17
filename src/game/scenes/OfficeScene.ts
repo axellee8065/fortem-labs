@@ -82,11 +82,11 @@ export class OfficeScene extends Phaser.Scene {
 
     // Interaction hint text
     this.hintText = this.add.text(0, 0, '', {
-      fontFamily: '"Press Start 2P", monospace',
-      fontSize: '6px',
+      fontFamily: 'Arial, "Noto Sans KR", sans-serif', fontStyle: 'bold',
+      fontSize: '10px',
       color: '#FFD700',
-      backgroundColor: '#000000aa',
-      padding: { x: 4, y: 2 },
+      backgroundColor: '#000000cc',
+      padding: { x: 6, y: 3 },
     }).setDepth(100).setVisible(false);
 
     // Start idle animations
@@ -156,11 +156,11 @@ export class OfficeScene extends Phaser.Scene {
 
     // Draw zone labels
     const labelStyle: Phaser.Types.GameObjects.Text.TextStyle = {
-      fontFamily: '"Press Start 2P", monospace',
-      fontSize: '8px',
+      fontFamily: 'Arial, "Noto Sans KR", sans-serif', fontStyle: 'bold',
+      fontSize: '11px',
       color: '#ffffff',
-      backgroundColor: '#00000066',
-      padding: { x: 4, y: 3 },
+      backgroundColor: '#000000aa',
+      padding: { x: 5, y: 3 },
     };
     this.add.text(5 * TILE, 12 * TILE, 'RESEARCH', labelStyle).setDepth(1).setAlpha(0.85);
     this.add.text(31 * TILE, 12 * TILE, 'DATA', labelStyle).setDepth(1).setAlpha(0.85);
@@ -182,12 +182,13 @@ export class OfficeScene extends Phaser.Scene {
 
     this.playerImage = this.add.image(0, -2, 'char_player').setOrigin(0.5, 0.5);
     const playerLabel = this.add.text(0, 16, '🧑‍💼 YOU', {
-      fontFamily: '"Press Start 2P", monospace',
-      fontSize: '6px',
+      fontFamily: 'Arial, "Noto Sans KR", sans-serif', fontStyle: 'bold',
+      fontSize: '9px',
       color: '#ffffff',
       backgroundColor: '#4488ffdd',
-      padding: { x: 3, y: 2 },
-      shadow: { offsetX: 1, offsetY: 1, color: '#000000', blur: 0, fill: true, stroke: false },
+      padding: { x: 4, y: 2 },
+      stroke: '#000000',
+      strokeThickness: 2,
     }).setOrigin(0.5);
 
     this.player = this.add.container(startX, startY, [
@@ -208,12 +209,13 @@ export class OfficeScene extends Phaser.Scene {
       const charImage = this.add.image(0, -2, `char_${role}`).setOrigin(0.5, 0.5);
 
       const nameTag = this.add.text(0, 16, `${config.emoji} ${config.name.split(' ')[0]}`, {
-        fontFamily: '"Press Start 2P", monospace',
-        fontSize: '6px',
+        fontFamily: 'Arial, "Noto Sans KR", sans-serif', fontStyle: 'bold',
+        fontSize: '8px',
         color: '#ffffff',
         backgroundColor: config.color + 'dd',
-        padding: { x: 3, y: 2 },
-        shadow: { offsetX: 1, offsetY: 1, color: '#000000', blur: 0, fill: true, stroke: false },
+        padding: { x: 4, y: 2 },
+        stroke: '#000000',
+        strokeThickness: 2,
       }).setOrigin(0.5);
 
       const statusIcon = this.add.text(10, -14, '💤', {
@@ -481,8 +483,8 @@ export class OfficeScene extends Phaser.Scene {
     const padding = 6;
 
     const bubbleText = this.add.text(0, 0, text, {
-      fontFamily: '"Press Start 2P", monospace',
-      fontSize: '4px',
+      fontFamily: 'Arial, "Noto Sans KR", sans-serif', fontStyle: 'normal',
+      fontSize: '8px',
       color: '#000000',
       wordWrap: { width: maxWidth - padding * 2 },
     }).setOrigin(0.5);
