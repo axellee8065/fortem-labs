@@ -3,7 +3,11 @@
 import { useTaskStore } from '@/stores/taskStore';
 import { useUIStore } from '@/stores/uiStore';
 
-export default function StatusBar() {
+interface StatusBarProps {
+  onShowGuide?: () => void;
+}
+
+export default function StatusBar({ onShowGuide }: StatusBarProps) {
   const tasks = useTaskStore((s) => s.tasks);
   const togglePanel = useUIStore((s) => s.togglePanel);
   const soundEnabled = useUIStore((s) => s.soundEnabled);
@@ -42,6 +46,14 @@ export default function StatusBar() {
           💬 Chat
         </button>
         <span className="text-green-400">✅ {completedTasks}</span>
+        {onShowGuide && (
+          <button
+            onClick={onShowGuide}
+            className="px-2 py-1 bg-[#2d2d4e] rounded hover:bg-[#3d3d5e] transition-colors"
+          >
+            ❓ Guide
+          </button>
+        )}
         <button
           onClick={toggleSound}
           className="px-2 py-1 bg-[#2d2d4e] rounded hover:bg-[#3d3d5e] transition-colors"

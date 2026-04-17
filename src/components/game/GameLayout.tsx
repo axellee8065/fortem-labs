@@ -8,6 +8,7 @@ import TaskPanel from '@/components/hud/TaskPanel';
 import InteractionHint from '@/components/hud/InteractionHint';
 import TaskAssignModal from '@/components/modals/TaskAssignModal';
 import ApprovalModal from '@/components/modals/ApprovalModal';
+import GuideModal from '@/components/modals/GuideModal';
 import { useUIStore } from '@/stores/uiStore';
 import { useTaskStore } from '@/stores/taskStore';
 import { useAgentStore } from '@/stores/agentStore';
@@ -29,6 +30,10 @@ export default function GameLayout() {
   const closeModal = useUIStore((s) => s.closeModal);
   const [selectedAgentId, setSelectedAgentId] = useState<string | null>(null);
   const [pendingApprovalTaskId, setPendingApprovalTaskId] = useState<string | null>(null);
+  const [showGuide, setShowGuide] = useState(() => {
+    if (typeof window === 'undefined') return true;
+    return !localStorage.getItem('fortem-guide-seen');
+  });
   const tasks = useTaskStore((s) => s.tasks);
 
   // Handle agent interaction (E key press near agent)
@@ -130,7 +135,7 @@ export default function GameLayout() {
       </div>
 
       {/* Other HUD */}
-      <StatusBar />
+      <StatusBar onShowGuide={() => setShowGuide(true)} />
       <ChatPanel />
       <InteractionHint />
 
@@ -149,6 +154,14 @@ export default function GameLayout() {
           onReject={handleReject}
           onRevise={handleRevise}
         />
+      )}
+
+      {/* Guide Modal */}
+      {showGuide && (
+        <GuideModal onClose={() => {
+          setShowGuide(false);
+          localStorage.setItem('fortem-guide-seen', 'true');
+        }} />
       )}
 
       {/* Controls hint */}
